@@ -1,3 +1,4 @@
+import model.Data;
 import model.UpdateData;
 import model.UpdateType;
 import model.data.AccountData;
@@ -15,8 +16,37 @@ public class Main {
         System.out.println(updateData2.getData());//тут мы не можем обратиться к методам класса WalletUpdate хотя это его данные
 
         //Ошибка
-        System.out.println(updateData1.getData().getOrders());
+        //System.out.println(updateData1.getData().getOrders());
         // getOrders() не работает как сделать что бы работал??
 
+
+        // Создаем объект UpdateData с UpdateType.ACCOUNT
+        UpdateData updateData = new UpdateData(UpdateType.ACCOUNT, "222");
+
+        // Получаем объект Data
+        Data data = updateData.getData();
+
+        // Проверяем, является ли объект Data экземпляром AccountData
+        if (data instanceof AccountData) {
+            // Приводим объект Data к типу AccountData
+            AccountData accountData = (AccountData) data;
+
+            // Теперь можем получить значение orders
+            int orders = accountData.getOrders();
+            System.out.println("Orders: " + orders);
+        } else if (data instanceof WalletData) {
+            // Приводим объект Data к типу AccountData
+            WalletData walletData = (WalletData) data;
+
+            // Теперь можем получить значение orders
+            double balance = walletData.getBalance();
+            double change = walletData.getBalance();
+            System.out.println("Orders: " + balance);
+            System.out.println("Change: " + change);
+        } else {
+            System.out.println("Data is not of type Data.");
+        }
     }
 }
+//Помните, что в этом примере используется предположение, что данные в строке "5" (в dataString) представляют количество заказов для AccountData. В реальном приложении вы должны убедиться, что данные соответствуют ожидаемому формату, чтобы избежать ошибок при преобразовании.
+
